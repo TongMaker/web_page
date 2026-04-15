@@ -580,6 +580,140 @@
             }
         }
 
+        /* Chef's Selection */
+        .chefs-selection {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            padding: 4rem 5%;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .chefs-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .chefs-subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .featured-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .featured-card {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .featured-card::before {
+            content: '★ Chef\'s Selection ★';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.35rem 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-card:hover .featured-image img {
+            transform: scale(1.08);
+        }
+
+        .featured-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .featured-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .chefs-selection {
+                padding: 2.5rem 3%;
+                margin: 1.5rem 0;
+            }
+
+            .chefs-title {
+                font-size: 1.8rem;
+            }
+
+            .featured-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .featured-card {
+                padding: 1.5rem;
+            }
+
+            .featured-image {
+                height: 200px;
+            }
+
+            .featured-name {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chefs-title {
+                font-size: 1.3rem;
+            }
+
+            .chefs-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .featured-card::before {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.75rem;
+            }
+        }
+
         @media (max-width: 768px) {
             nav {
                 padding: 1rem 3%;
@@ -1062,6 +1196,15 @@
         </div>
     </section>
 
+    <!-- Chef's Selection -->
+    <div class="chefs-selection">
+        <h2 class="chefs-title">✨ Chef's Selection ✨</h2>
+        <p class="chefs-subtitle">Descubre los platos más especiales de nuestra casa</p>
+        <div class="featured-cards" id="featuredCards">
+            <!-- Featured dishes will be loaded here -->
+        </div>
+    </div>
+
     <!-- Dishes Section -->
     <section id="dishes">
         <h2 class="section-title">Nuestros Platos</h2>
@@ -1082,20 +1225,20 @@
     <!-- Concept Section -->
     <section id="concept">
         <div class="concept-text">
-            <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Nuestra Filosofía</h2>
+            <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Nuestra Experiencia</h2>
             <p>En Gastronomía Xian, creemos que cada plato debe contar una historia. Nuestro concepto se centra en la fusión de técnicas culinarias asiáticas tradicionales con ingredientes frescos y de calidad superior.</p>
-            <p>Cada preparación es un acto de creatividad y pasión, donde el sabor, la textura y la presentación se unen para crear una experiencia sensorial única.</p>
-            <p>Nos comprometemos a ofrecer no solo comida, sino una experiencia gastronómica que trascienda las expectativas, dejando un recuerdo duradero en cada comensal.</p>
+            <p>Ofrecemos una experiencia gastronómica de tasting donde cada creación es pensada como una obra de arte. Nos enfocamos en la calidad, la presentación y el sabor, creando combinaciones únicas que trascienden los menús tradicionales.</p>
+            <p>Desde aperitivos delicados hasta platos principales sofisticados, cada detalle está cuidado. Te invitamos a explorar nuestros platos y dejarte sorprender por la creatividad y pasión que invertimos en cada bocado.</p>
         </div>
         <div class="concept-image">
-            <img src="photo/Hero.JPG" alt="nuestra historia" loading="lazy">
+            <img src="photo/Hero.JPG" alt="nuestra experiencia culinaria" loading="lazy">
         </div>
     </section>
 
     <!-- Reservation Section -->
     <section id="reservation">
-        <h2 class="section-title">Reservar Mesa</h2>
-        <p class="section-subtitle">Asegura tu lugar para una experiencia culinaria inolvidable</p>
+        <h2 class="section-title">Reserva tu Mesa</h2>
+        <p class="section-subtitle">Vive una experiencia culinaria única. Reserva tu lugar en nuestra mesa y desfruta de la magia de Gastronomía Xian</p>
         
         <form class="reservation-form" onsubmit="handleReservation(event)">
             <div class="form-group">
@@ -1145,15 +1288,15 @@
         <div class="contact-grid">
             <div class="contact-item">
                 <h3>📍 Ubicación</h3>
-                <p>Calle Principal 123<br>Madrid, España 28001</p>
+                <p>Calle de los Reyes Católicos 17, Local E<br>28938 Móstoles, Madrid</p>
             </div>
             <div class="contact-item">
                 <h3>🕒 Horarios</h3>
-                <p>Lunes - Jueves: 12:00 - 23:00<br>Viernes - Sabado: 12:00 - 00:00<br>Domingo: 12:00 - 22:00</p>
+                <p>Martes - Domingo<br>13:00 - 16:00<br>20:00 - 23:00<br><br><em style="font-size: 0.85rem; color: #999;">Cerrado los lunes</em></p>
             </div>
             <div class="contact-item">
-                <h3>☎️ Teléfono</h3>
-                <p>+34 123 456 789<br>reservas@xian.com</p>
+                <h3>☎️ Contacto</h3>
+                <p><strong>Teléfono:</strong> +34 641 929 470<br><strong>Email:</strong> <a href="mailto:info@xian.com" style="color: var(--primary); text-decoration: none;">info@xian.com</a></p>
             </div>
         </div>
     </section>
@@ -1248,7 +1391,8 @@
                 category: "arroz",
                 image: "photo/Arroz pollo Kunbao.JPG",
                 ingredients: ["Arroz jasmine", "Pechuga de pollo", "Cacahuetes", "Chiles rojos", "Salsa agridulce", "Vinagre de arroz"],
-                chefNotes: "Equilibrio perfecto entre sabores dulces, ácidos y picantes"
+                chefNotes: "Equilibrio perfecto entre sabores dulces, ácidos y picantes",
+                featured: true
             },
             {
                 id: 6,
@@ -1257,7 +1401,8 @@
                 category: "arroz",
                 image: "photo/Arroz pollo curry.JPG",
                 ingredients: ["Arroz basmati", "Pollo de corral", "Curry tailandés", "Leche de coco", "Cilantro", "Albahaca tailandesa"],
-                chefNotes: "Un viaje sensorial a través de las especias asiáticas"
+                chefNotes: "Un viaje sensorial a través de las especias asiáticas",
+                featured: true
             },
             {
                 id: 7,
@@ -1302,15 +1447,43 @@
                 category: "postre",
                 image: "photo/Mochi mango.JPG",
                 ingredients: ["Harina de arroz glutinoso", "Pulpa de mango", "Azúcar", "Leche de coco"],
-                chefNotes: "Una explosión de frescura tropical"
+                chefNotes: "Una explosión de frescura tropical",
+                featured: true
             }
         ];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            renderFeatured();
             renderDishes('all');
             setupIntersectionObserver();
         });
+
+        // Render featured dishes
+        function renderFeatured() {
+            const featuredContainer = document.getElementById('featuredCards');
+            const featured = dishes.filter(d => d.featured);
+
+            featured.forEach(dish => {
+                const card = document.createElement('div');
+                card.className = 'featured-card fade-in';
+                card.innerHTML = `
+                    <div class="featured-image">
+                        <img src="${dish.image}" alt="${dish.name}" loading="lazy">
+                    </div>
+                    <h3 class="featured-name">${dish.name}</h3>
+                    <p class="featured-desc">${dish.description}</p>
+                `;
+                card.onclick = () => openModal(dish);
+                featuredContainer.appendChild(card);
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.featured-card').forEach(card => {
+                    card.classList.add('visible');
+                });
+            }, 50);
+        }
 
         // Render dishes
         function renderDishes(category) {

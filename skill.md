@@ -60,5 +60,10 @@ Bonus:
 - Lazy loading for images
 - SEO-friendly structure
 
+Informations to add:
+- telephone number: 641929470
+- email: info@xian.com
+- adress: calle de los Reyes Catolicos 17, Local E 28938 Móstoles, Madrid
+- martes - domingo: 13:00 - 16:00 / 20:00 - 23:00
 Goal:
 The website should feel like a curated culinary experience, where each dish is treated as a piece of art rather than part of a traditional menu.
