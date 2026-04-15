@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastronomía Xian - Fine Dining Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4af37;
+            --dark: #0a0a0a;
+            --light: #f5f5f5;
+            --text: #1a1a1a;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+        p, a, span { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 60px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05), transparent);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--primary);
+            margin: 2rem auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 4rem;
+            letter-spacing: 1px;
+        }
+
+        /* Dishes Section */
+        #dishes {
+            background: white;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .dish-card {
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            group: "card";
+        }
+
+        .dish-image {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .dish-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .dish-card:hover .dish-image img {
+            transform: scale(1.05);
+        }
+
+        .dish-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .dish-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .dish-price {
+            margin-top: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .dish-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            background: white;
+            border: none;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 3rem;
+        }
+
+        .modal-body h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .ingredients-list {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--light);
+        }
+
+        .ingredients-list h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .ingredients-list ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .ingredients-list li {
+            padding: 0.5rem;
+            color: #666;
+        }
+
+        .ingredients-list li::before {
+            content: '◆ ';
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        /* Chef / About Section */
+        #concept {
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .concept-text {
+            flex: 1;
+        }
+
+        .concept-text p {
+            font-size: 1.05rem;
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .concept-image {
+            flex: 1;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .concept-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Reservation Section */
+        #reservation {
+            background: var(--dark);
+            color: white;
+        }
+
+        #reservation .section-title {
+            color: white;
+        }
+
+        #reservation .section-subtitle {
+            color: #ccc;
+        }
+
+        .reservation-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: inherit;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: white;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            #concept {
+                flex-direction: column;
+            }
+
+            .concept-image {
+                height: 300px;
+            }
+
+            .dishes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Gastronomía Xian</div>
+        <ul class="nav-links">
+            <li><a href="#dishes">Platos</a></li>
+            <li><a href="#concept">Concepto</a></li>
+            <li><a href="#reservation">Reservar</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>GASTRONOMÍA XIAN</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">Experiencia Culinaria Aústica</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('dishes').scrollIntoView();">Explorar Platos</button>
+                <button class="btn" onclick="document.getElementById('reservation').scrollIntoView();">Reservar Mesa</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dishes Section -->
+    <section id="dishes">
+        <h2 class="section-title">Nuestros Platos</h2>
+        <p class="section-subtitle">Cada plato es una experiencia culinaria única, diseñado con dedicación y creatividad</p>
+        
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterDishes('all')">Todos</button>
+            <button class="filter-btn" onclick="filterDishes('arroz')">Arroces</button>
+            <button class="filter-btn" onclick="filterDishes('aperitivo')">Aperitivos</button>
+            <button class="filter-btn" onclick="filterDishes('postre')">Postres</button>
+        </div>
+
+        <div class="dishes-grid" id="dishesGrid">
+            <!-- Dishes will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Concept Section -->
+    <section id="concept">
+        <div class="concept-text">
+            <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Nuestra Filosofía</h2>
+            <p>En Gastronomía Xian, creemos que cada plato debe contar una historia. Nuestro concepto se centra en la fusión de técnicas culinarias asiáticas tradicionales con ingredientes frescos y de calidad superior.</p>
+            <p>Cada preparación es un acto de creatividad y pasión, donde el sabor, la textura y la presentación se unen para crear una experiencia sensorial única.</p>
+            <p>Nos comprometemos a ofrecer no solo comida, sino una experiencia gastronómica que trascienda las expectativas, dejando un recuerdo duradero en cada comensal.</p>
+        </div>
+        <div class="concept-image">
+            <img src="photo/Hero.JPG" alt="nuestra historia" loading="lazy">
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation">
+        <h2 class="section-title">Reservar Mesa</h2>
+        <p class="section-subtitle">Asegura tu lugar para una experiencia culinaria inolvidable</p>
+        
+        <form class="reservation-form" onsubmit="handleReservation(event)">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico</label>
+                <input type="email" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" required>
+            </div>
+            <div class="form-group">
+                <label>Fecha</label>
+                <input type="date" required>
+            </div>
+            <div class="form-group">
+                <label>Hora</label>
+                <input type="time" required>
+            </div>
+            <div class="form-group">
+                <label>Número de Personas</label>
+                <select required>
+                    <option value="">Seleccionar</option>
+                    <option value="1">1 Persona</option>
+                    <option value="2">2 Personas</option>
+                    <option value="3">3 Personas</option>
+                    <option value="4">4 Personas</option>
+                    <option value="5">5 Personas</option>
+                    <option value="6">6 Personas</option>
+                    <option value="7+">7+ Personas</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Notas Especiales</label>
+                <textarea rows="4" placeholder="Alergias, preferencias..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Confirmar Reserva</button>
+        </form>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Contacto</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <h3>📍 Ubicación</h3>
+                <p>Calle Principal 123<br>Madrid, España 28001</p>
+            </div>
+            <div class="contact-item">
+                <h3>🕒 Horarios</h3>
+                <p>Lunes - Jueves: 12:00 - 23:00<br>Viernes - Sabado: 12:00 - 00:00<br>Domingo: 12:00 - 22:00</p>
+            </div>
+            <div class="contact-item">
+                <h3>☎️ Teléfono</h3>
+                <p>+34 123 456 789<br>reservas@xian.com</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Gastronomía Xian. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Dish Detail Modal -->
+    <div class="modal" id="dishModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img id="modalImage" src="" alt="">
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <h2 id="modalName"></h2>
+                <p id="modalDescription"></p>
+                <div class="ingredients-list">
+                    <h3>Ingredientes</h3>
+                    <ul id="modalIngredients"></ul>
+                </div>
+                <div>
+                    <h3>Notas del Chef</h3>
+                    <p id="modalChefNotes"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dish Data
+        const dishes = [
+            {
+                id: 1,
+                name: "Arroz con Cerdo Estofado",
+                description: "Arroz perfumado con cerdo tierno, guisado lentamente con especias asiáticas",
+                category: "arroz",
+                image: "photo/Arroz con cerdo estofado.JPG",
+                ingredients: ["Arroz jasmine", "Cerdo de calidad premium", "Salsa de soja", "Jengibre", "Ajo", "Cebolleta"],
+                chefNotes: "Una interpretación moderna del clásico asiático, donde el cerdo se deshace en la boca"
+            },
+            {
+                id: 2,
+                name: "Arroz con Pollo a la Plancha",
+                description: "Pecho de pollo a la plancha con arroz aromático y vegetales frescos",
+                category: "arroz",
+                image: "photo/Arroz con pollo a la plancha.JPG",
+                ingredients: ["Arroz basmati", "Pecho de pollo", "Brócoli", "Zanahoria", "Cebolla", "Aceite de sésamo"],
+                chefNotes: "Preparado con precisión para mantener la jugosidad del pollo"
+            },
+            {
+                id: 3,
+                name: "Arroz con Ternera",
+                description: "Ternera tiernamente cocinada con arroz de grano largo y salsa de especias",
+                category: "arroz",
+                image: "photo/Arroz con ternera.JPG",
+                ingredients: ["Arroz aromático", "Ternera premium", "Pimienta de Sichuan", "Vino de arroz", "Chalota", "Cilantro"],
+                chefNotes: "Una delicadeza que combina elegancia y sabor intenso"
+            },
+            {
+                id: 4,
+                name: "Arroz Frito",
+                description: "Arroz del día anterior salteado con técnica tradicional wok",
+                category: "arroz",
+                image: "photo/Arroz frito.JPG",
+                ingredients: ["Arroz del día anterior", "Huevo", "Camarones", "Guisantes", "Cebolla verde", "Salsa especial wok"],
+                chefNotes: "El arte del wok en su máxima expresión"
+            },
+            {
+                id: 5,
+                name: "Arroz Pollo Kunbao",
+                description: "Pollo crujiente con cacahuetes en salsa agridulce sobre lecho de arroz",
+                category: "arroz",
+                image: "photo/Arroz pollo Kunbao.JPG",
+                ingredients: ["Arroz jasmine", "Pechuga de pollo", "Cacahuetes", "Chiles rojos", "Salsa agridulce", "Vinagre de arroz"],
+                chefNotes: "Equilibrio perfecto entre sabores dulces, ácidos y picantes"
+            },
+            {
+                id: 6,
+                name: "Arroz Pollo Curry",
+                description: "Pollo en salsa de curry con coco y especias, servido sobre arroz",
+                category: "arroz",
+                image: "photo/Arroz pollo curry.JPG",
+                ingredients: ["Arroz basmati", "Pollo de corral", "Curry tailandés", "Leche de coco", "Cilantro", "Albahaca tailandesa"],
+                chefNotes: "Un viaje sensorial a través de las especias asiáticas"
+            },
+            {
+                id: 7,
+                name: "Alitas Crujientes",
+                description: "Alitas de pollo marinadas y fritas hasta lograr una textura crujiente perfecta",
+                category: "aperitivo",
+                image: "photo/Alitas.JPG",
+                ingredients: ["Alitas de pollo", "Marinada asiática", "Aceite de girasol", "Sésamo", "Chile seco"],
+                chefNotes: "Crocantes por fuera, jugosas por dentro"
+            },
+            {
+                id: 8,
+                name: "Empanadillas Chinas",
+                description: "Empanadillas rellenas de cerdo y vegetales, fritas hasta dorar",
+                category: "aperitivo",
+                image: "photo/Empanadillas chinas.JPG",
+                ingredients: ["Masa de empanadilla", "Cerdo picado", "Cebolleta", "Champiñones", "Salsa de soja", "Jengibre"],
+                chefNotes: "Texturas contrastantes en un bocado perfecto"
+            },
+            {
+                id: 9,
+                name: "Rollitos Asiáticos",
+                description: "Rollitos crujientes rellenos de verduras y proteína, acompañados de salsa agridulce",
+                category: "aperitivo",
+                image: "photo/Rollitos.JPG",
+                ingredients: ["Masa de rollito", "Verduras mixtas", "Camarones", "Cilantro", "Salsa agridulce"],
+                chefNotes: "La forma tradicional de iniciar una experiencia culinaria"
+            },
+            {
+                id: 10,
+                name: "Mochi de Coco",
+                description: "Postre tradicional asiático con sabor a coco fresco y cremoso",
+                category: "postre",
+                image: "photo/Mochi coco.JPG",
+                ingredients: ["Harina de arroz glutinoso", "Leche de coco", "Azúcar", "Coco rallado"],
+                chefNotes: "Suave, delicado y satisface el paladar"
+            },
+            {
+                id: 11,
+                name: "Mochi de Mango",
+                description: "Mochi con sabor tropical de mango maduro y fresco",
+                category: "postre",
+                image: "photo/Mochi mango.JPG",
+                ingredients: ["Harina de arroz glutinoso", "Pulpa de mango", "Azúcar", "Leche de coco"],
+                chefNotes: "Una explosión de frescura tropical"
+            }
+        ];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDishes('all');
+            setupIntersectionObserver();
+        });
+
+        // Render dishes
+        function renderDishes(category) {
+            const grid = document.getElementById('dishesGrid');
+            grid.innerHTML = '';
+
+            const filtered = category === 'all' 
+                ? dishes 
+                : dishes.filter(d => d.category === category);
+
+            filtered.forEach(dish => {
+                const card = document.createElement('div');
+                card.className = 'dish-card fade-in';
+                card.innerHTML = `
+                    <div class="dish-badge">${dish.category.toUpperCase()}</div>
+                    <div class="dish-image">
+                        <img src="${dish.image}" alt="${dish.name}" loading="lazy">
+                    </div>
+                    <h3 class="dish-name">${dish.name}</h3>
+                    <p class="dish-description">${dish.description}</p>
+                    <div class="dish-price">Ver Detalles →</div>
+                `;
+                card.onclick = () => openModal(dish);
+                grid.appendChild(card);
+            });
+
+            // Animate new cards
+            setTimeout(() => {
+                document.querySelectorAll('.dish-card').forEach(card => {
+                    card.classList.add('visible');
+                });
+            }, 50);
+        }
+
+        // Filter dishes
+        function filterDishes(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderDishes(category);
+        }
+
+        // Modal functions
+        function openModal(dish) {
+            const modal = document.getElementById('dishModal');
+            document.getElementById('modalImage').src = dish.image;
+            document.getElementById('modalName').textContent = dish.name;
+            document.getElementById('modalDescription').textContent = dish.description;
+            document.getElementById('modalChefNotes').textContent = dish.chefNotes;
+            
+            const ingredientsList = document.getElementById('modalIngredients');
+            ingredientsList.innerHTML = '';
+            dish.ingredients.forEach(ing => {
+                const li = document.createElement('li');
+                li.textContent = ing;
+                ingredientsList.appendChild(li);
+            });
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('dishModal').classList.remove('active');
+        }
+
+        // Handle reservation
+        function handleReservation(event) {
+            event.preventDefault();
+            alert('¡Reserva recibida! Nos contactaremos pronto para confirmar.');
+            event.target.reset();
+        }
+
+        // Intersection Observer for scroll animations
+        function setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Close modal on outside click
+        document.getElementById('dishModal').addEventListener('click', (e) => {
+            if (e.target.id === 'dishModal') closeModal();
+        });
+    </script>
+</body>
+</html>
